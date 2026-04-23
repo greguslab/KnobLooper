@@ -1,10 +1,11 @@
 # KnobLooper
 
-KnobLooper is a desktop tool for recording and looping MIDI knob gestures, then sending them out as OSC data for live audiovisual workflows.
+KnobLooper is a desktop MIDI-to-OSC bridge for recording and looping knob gestures, turning controller movements into reusable automation for live audiovisual parameters.
 
-It is designed for performance-oriented setups where you want to capture manual controller movements and replay them as continuous automation. A typical use case is a MIDI controller driving parameters in visual software such as MadMapper.
+It is designed for performance-oriented setups where you want to capture manual controller input and replay it as continuous OSC automation. A typical use case is controlling parameters in live visual software such as MadMapper.
 
-> Current status: **early alpha / work in progress**. The app is functional and already useful, but it is still evolving.
+> Current status: **early alpha / work in progress**.  
+> The app is functional and already useful, but it is still evolving.
 
 ## Features
 
@@ -13,12 +14,12 @@ It is designed for performance-oriented setups where you want to capture manual 
 - **MIDI learn** for knob channels and pads
 - **OSC output** to external software
 - **Per-channel speed control**
-- **Record / play / pause** loop workflow from the donut control
+- **Record / play / pause** workflow from the main loop control
 - **Preset system** stored as JSON
 - **Autosave** for the current preset state
 - **Global log** for quick monitoring
 
-## What it is for
+## What it does
 
 KnobLooper sits between a MIDI controller and an OSC-compatible application.
 
@@ -29,19 +30,20 @@ Typical workflow:
 3. Use **LEARN** on a channel.
 4. Move a hardware knob to bind a MIDI CC.
 5. Record a gesture.
-6. Let KnobLooper loop and resend the movement as OSC.
+6. Let KnobLooper loop and resend the movement as OSC automation.
 
-This makes it possible to create repeatable parameter animations from live controller gestures instead of drawing automation curves by hand.
+This makes it possible to create repeatable parameter animation from live controller gestures instead of drawing automation curves by hand.
 
 ## Current implementation
 
-This public version includes:
+This public version currently includes:
 
 - loop channels with MIDI CC learn
-- donut-based record / playback state display
+- loop recording and playback
+- donut-based visual playback state
 - pad page with configurable OSC addresses and modes
 - preset save / load / autosave
-- paging system for channels 1-16
+- paging system for channels 1–16
 
 ## Planned / likely next steps
 
@@ -57,7 +59,7 @@ This public version includes:
 - A MIDI controller or virtual MIDI source
 - An OSC-compatible target application
 
-Python packages:
+Main Python packages:
 
 - PySide6
 - mido
@@ -66,25 +68,36 @@ Python packages:
 
 ## Installation
 
+Clone the repository:
+
 ```bash
-git clone https://github.com/YOUR-USERNAME/KnobLooper.git
+git clone https://github.com/greguslab/KnobLooper.git
 cd KnobLooper
-python -m venv .venv
 ```
 
-### Windows
+Create a virtual environment and install dependencies.
 
-```bash
-.venv\Scripts\activate
+### Windows (PowerShell)
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\activate
 pip install -r requirements.txt
-python main.py
 ```
 
 ### macOS / Linux
 
 ```bash
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+## Run
+
+Start the application with:
+
+```bash
 python main.py
 ```
 
@@ -98,7 +111,7 @@ Each loop channel can:
 - record incoming knob motion
 - replay it as a loop
 - change playback speed
-- send normalized OSC values from 0.0 to 1.0
+- send normalized OSC values from `0.0` to `1.0`
 
 Default OSC addresses are:
 
