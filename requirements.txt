@@ -1,0 +1,4 @@
+mido
+python-rtmidi
+PySide6
+python-osc
